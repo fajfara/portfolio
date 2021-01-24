@@ -1,0 +1,5 @@
+
+
+@function calculatePercentage($numOfColumns: 1) {
+  @return (((($container-max-width - ($gutter * ($numOfColumns - 1))) / $numOfColumns) / $container-max-width) * 100) * 1%;
+}

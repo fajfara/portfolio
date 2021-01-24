@@ -1,0 +1,67 @@
+// ------------------------------------------------- //
+//                     Variables                     //
+// ------------------------------------------------- //
+// Create scss variables
+$container-max-width: 1200;
+$gutter: 64;
+$base-font-size: 16;
+
+@function rem($size) {
+  @return $size / $base-font-size * 1rem;
+}
+
+// Define breakpoints
+$breakpoints: (
+        'small-mobile': 400px,
+        'mobile': 576px,
+        'tablet':  768px,
+        'small-desktop': 992px,
+        'container':  1200px,
+        '1440': 1440px,
+        '1700': 1700px
+) !default;
+
+// Define spacings
+$spacings: (
+        'xs': rem(8),
+        'sm': rem(16),
+        'md':  rem(32),
+        'lg': rem(64),
+        'xl':  rem(128),
+) !default;
+
+// Define header fixed height
+$header-height: 83;
+
+$font-family-primary: 'Ubuntu', sans-serif;
+$font-family-secondary: 'Eczar', serif;
+
+
+//////////// Root ////////////
+// Grid
+:root {
+  --container-max-width: rem($container-max-width);
+  --gutter: rem($gutter);
+}
+
+// Spacings
+:root {
+  --spacing-xs: map-get($spacings, 'xs');
+  --spacing-sm: map-get($spacings, 'sm');
+  --spacing-md: map-get($spacings, 'md');
+  --spacing-lg: map-get($spacings, 'lg');
+  --spacing-xl: map-get($spacings, 'xl');
+}
+
+// Colors
+:root {
+  --color-black: '#111';
+  --color-white: '#fff';
+}
+
+// Fonts
+:root {
+  --font-family-primary: $font-family-primary;
+  --font-family-secondary: $font-family-secondary;
+}
+

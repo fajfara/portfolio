@@ -1,0 +1,37 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "@glidejs/glide": "^3.4.1",
+    "dotenv": "^8.2.0",
+    "emotion-theming": "^10.0.27",
+    "framer-motion": "^1.11.1",
+    "gsap": "^3.4.2",
+    "next": "9.4.4",
+    "next-react-svg": "^1.1.2",
+    "polished": "^3.6.5",
+    "pure-react-carousel": "^1.27.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-glider": "^2.0.1",
+    "react-rellax-wrapper": "^1.0.5",
+    "react-spring": "^8.0.27",
+    "react-use-dimensions": "^1.2.1",
+    "sass": "^1.26.9",
+    "swiper": "^6.0.0",
+    "tiny-slider": "^2.9.2",
+    "tiny-slider-react": "^0.5.2",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "next-images": "^1.4.0"
+  }
+}
