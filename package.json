@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:start": "concurrently \"cd backend && yarn develop\" \"cd frontend && npm run dev\""
+    "dev:start": "concurrently \"cd backend && yarn develop\" \"cd frontend && yarn dev\""
   },
   "author": "",
   "license": "ISC",

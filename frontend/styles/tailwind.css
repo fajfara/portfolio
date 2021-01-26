@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;700&family=Ubuntu:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.weird-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  --irregular-grid-x: 5;
+  --irregular-grid-y: 10;
+}
+.weird-item {
+  height: 200px;
+  overflow: hidden;
+}
+@supports (mask-border-source: paint(irregular-grid)) {
+  .is-loaded .item {
+    overflow: visible;
+    --border-width: 20;
+    mask-border-source: paint(irregular-grid);
+    mask-border-outset: calc(1px * var(--border-width));
+  }
+}

@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "projects",
   "info": {
-    "name": "Project"
+    "name": "Project",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "title": {
@@ -18,13 +20,20 @@
     "description": {
       "type": "text"
     },
-    "preview": {
+    "video_preview": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
-        "images",
-        "files",
         "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "screenshots": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
       ],
       "plugin": "upload",
       "required": false
