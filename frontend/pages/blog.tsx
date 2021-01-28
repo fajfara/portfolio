@@ -1,12 +1,13 @@
 // Frame motion
 import { motion } from 'framer-motion';
+import Heading from '../components/heading/Heading';
 
 export default function Blog() {
   return (
-    <motion.div exit={{ opacity: 0 }} initial="initial" animate="animate">
+    <motion.main exit={{ opacity: 0 }} initial="initial" animate="animate">
       <motion.div>
-        <h1>Blog</h1>
+        <Heading level={1}>Blog</Heading>
       </motion.div>
-    </motion.div>
+    </motion.main>
   );
 }
