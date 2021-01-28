@@ -17,47 +17,9 @@ import Heading from '../components/heading/Heading';
 import AccessibilityIcon from '../components/svg/AccessibilityIcon';
 import StrapiIcon from '../components/svg/StrapiIcon';
 import FadeInUp from '../components/animated/FadeInUp';
-
-const tools = [
-  {
-    icon: <AccessibilityIcon />,
-    hoverContent: <h2>Accessibility</h2>,
-  },
-  {
-    icon: <NucleoIcon icon="web-components" />,
-    hoverContent: <h2>Web components</h2>,
-  },
-];
-
-const CMS = [
-  {
-    icon: <NucleoIcon icon="drupal" />,
-    hoverContent: <h2>Drupal</h2>,
-  },
-  {
-    icon: <StrapiIcon />,
-    hoverContent: <h2>Strapi</h2>,
-  },
-  {
-    icon: <NucleoIcon icon="wordpress" />,
-    hoverContent: <h2>Wordpress</h2>,
-  },
-];
-
-const frameworks = [
-  {
-    icon: <NucleoIcon icon="react" />,
-    hoverContent: <p>React</p>,
-  },
-  {
-    icon: <NucleoIcon icon="nextjs" />,
-    hoverContent: <p>Next js</p>,
-  },
-  {
-    icon: <NucleoIcon icon="vuejs" />,
-    hoverContent: <p>Vuejs</p>,
-  },
-];
+import TooltipLink from '../components/tooltip/TooltipLink';
+import Contact from '../components/forms/Contact';
+import TailwindIcon from '../components/svg/TailwindIcon';
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
@@ -67,17 +29,19 @@ export default function Home() {
    * Mounted useEffect
    */
   useEffect(() => {
-    fetch(`${API_URL}/projects`)
-      .then(response => response.json())
-      .then(data => {
-        setProjects(data);
-      });
+    const fetchProjects = async () => {
+      const response = await fetch(`${API_URL}/projects`);
+      const data = await response.json();
+      setProjects(data);
+    };
+
+    fetchProjects();
   }, []);
 
   return (
     <motion.main exit={{ opacity: 0 }} initial="initial" animate="animate" className="overflow-hidden">
       <section className="pt-32 pb-64 relative" id="landing">
-        <FadeInUp className="w-full text-center mb-10" delay={0.2}>
+        <FadeInUp className="w-full text-center mb-10 z-10" delay={0.2}>
           <Heading level={1}>Hey,</Heading>
         </FadeInUp>
         <div className="container mx-auto flex flex-wrap relative z-10">
@@ -98,7 +62,7 @@ export default function Home() {
             </div>
           </FadeInUp>
           <FadeInUp className="w-full flex justify-center mt-20 items-center flex-wrap" delay={0.65}>
-            <Button className="group">
+            <Button className="group" href="#contact">
               <span className="mr-4">Get in touch</span>
               <BsArrowRight className="transform group-hover:rotate-90 transition-transform duration-300 ease-in-out" size="1.5rem" />
             </Button>
@@ -122,14 +86,20 @@ export default function Home() {
       </section>
 
       <section id="about" className="py-32 relative">
-        <FadeInUp delay={0.2} className="text-center mb-16">
+        <FadeInUp className="text-center mb-16">
           <Heading level={2} styledAs={1}>
             About
           </Heading>
         </FadeInUp>
         <div className="container mx-auto relative z-30">
           <div className="px-96 relative flex">
-            <p className="w-1/2">I am a frontend developer, freelancer and amateur musician. My passion is primarily in web development.</p>
+            <p className="w-1/2">
+              My passions lies in frontend development and music. I started my journey as a self taught developer, checkout my work history{' '}
+              <Button className="inline-flex" variant="ternary" href="https://www.linkedin.com/in/fajfara" target="_blank">
+                @Linkedin.
+              </Button>{' '}
+              In my spare time i like to play electric guitar and play video games.
+            </p>
             <Image src="/images/me-guitar-jpg.jpg" width={300} height={500} className="w-1/2" />
           </div>
         </div>
@@ -137,7 +107,7 @@ export default function Home() {
       </section>
 
       <section className="relative py-32" id="skills">
-        <FadeInUp delay={0.2} className="text-center mb-16">
+        <FadeInUp className="text-center mb-16">
           <Heading className="text-center mb-16" level={2} styledAs={1}>
             Skills
           </Heading>
@@ -145,7 +115,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="flex flex-wrap z-40 relative">
             <div className="w-full mb-16">
-              <FadeInUp delay={0.4}>
+              <FadeInUp delay={0.1}>
                 <div className="flex" style={{ maxWidth: '50%', margin: '0px auto 4rem' }}>
                   <div className="w-1/3 flex justify-center">
                     <NucleoIcon size={72} icon="html" />
@@ -159,36 +129,89 @@ export default function Home() {
                 </div>
               </FadeInUp>
             </div>
-
-            <FadeInUp delay={0.6} className="w-1/3 py-8 px-16">
-              <Heading level={3} className="text-center mb-16">
-                Stuff
-              </Heading>
-              <div className="flex justify-evenly">
-                <AccessibilityIcon />
-                <NucleoIcon size={50} icon="web-components" />
-              </div>
-            </FadeInUp>
-
-            <FadeInUp delay={0.8} className="w-1/3 py-8 px-16">
+            <FadeInUp delay={0.2} className="w-1/3 py-8 px-16">
               <Heading level={3} className="text-center mb-16">
                 CMS
               </Heading>
               <div className="flex justify-evenly">
-                <StrapiIcon />
-                <NucleoIcon size={50} icon="drupal" />
-                <NucleoIcon size={50} icon="wordpress" />
+                <TooltipLink href="https://strapi.io/" linkContent={<StrapiIcon />} tooltipContent={<p>Strapi</p>} id="tooltip_strapi" />
+
+                <TooltipLink
+                  href="https://drupal.org/"
+                  linkContent={<NucleoIcon size={50} icon="drupal" />}
+                  tooltipContent={<p>Drupal</p>}
+                  id="tooltip_drupal"
+                />
+
+                <TooltipLink
+                  href="https://wordpress.org/"
+                  linkContent={<NucleoIcon size={50} icon="wordpress" />}
+                  tooltipContent={<p>Wordpress</p>}
+                  id="tooltip_wordpress"
+                />
               </div>
             </FadeInUp>
 
-            <FadeInUp delay={1} className="w-1/3 py-8 px-16">
+            <FadeInUp delay={0.3} className="w-1/3 py-8 px-16">
               <Heading level={3} className="text-center mb-16">
                 Frameworks
               </Heading>
               <div className="flex justify-evenly">
-                <NucleoIcon size={50} icon="react" />
-                <NucleoIcon size={50} icon="nextjs" />
-                <NucleoIcon size={50} icon="vuejs" />
+                <TooltipLink
+                  href="https://reactjs.org/"
+                  linkContent={<NucleoIcon size={50} icon="react" />}
+                  tooltipContent={<p>React</p>}
+                  id="tooltip_react"
+                />
+
+                <TooltipLink
+                  href="https://vuejs.org/"
+                  linkContent={<NucleoIcon size={50} icon="vuejs" />}
+                  tooltipContent={<p>VueJs</p>}
+                  id="tooltip_vuejs"
+                />
+
+                <TooltipLink
+                  href="https://nextjs.com/"
+                  linkContent={<NucleoIcon size={50} icon="nextjs" />}
+                  tooltipContent={<p>NextJs</p>}
+                  id="tooltip_nextjs"
+                />
+
+                <TooltipLink
+                  href="https://nuxtjs.org/"
+                  linkContent={<NucleoIcon size={50} icon="nuxtjs-icon" />}
+                  tooltipContent={<p>NuxtJS</p>}
+                  id="tooltip_nuxtjs"
+                />
+
+                <TooltipLink
+                  href="https://tailwindcss.com/"
+                  linkContent={<TailwindIcon />}
+                  tooltipContent={<p>Tailwind css</p>}
+                  id="tooltip_tailwindcss"
+                />
+              </div>
+            </FadeInUp>
+
+            <FadeInUp delay={0.4} className="w-1/3 py-8 px-16">
+              <Heading level={3} className="text-center mb-16">
+                Other
+              </Heading>
+              <div className="flex justify-evenly">
+                <TooltipLink
+                  href="https://www.w3.org/WAI/fundamentals/accessibility-intro/"
+                  linkContent={<AccessibilityIcon />}
+                  tooltipContent={<p>Accessibility</p>}
+                  id="tooltip_accessibility"
+                />
+
+                <TooltipLink
+                  href="https://developer.mozilla.org/en-US/docs/Web/Web_Components"
+                  linkContent={<NucleoIcon size={50} icon="web-components" />}
+                  tooltipContent={<p>Web components</p>}
+                  id="tooltip_webcomponents"
+                />
               </div>
             </FadeInUp>
           </div>
@@ -197,7 +220,7 @@ export default function Home() {
       </section>
 
       <section className="py-32 relative" id="projects">
-        <FadeInUp delay={0.2} className="text-center mb-16">
+        <FadeInUp className="text-center mb-16">
           <Heading level={2} styledAs={1}>
             Projects
           </Heading>
@@ -205,11 +228,25 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="flex flex-wrap px-96">
             {projects.map((project, index) => (
-              <ProjectCard className="mb-8" project={project} key={index} />
+              <FadeInUp delay={(index + 1) / 10} className="w-full">
+                <ProjectCard className="mb-8" project={project} key={index} />
+              </FadeInUp>
             ))}
           </div>
         </div>
         <RandomShapes amount={3} />
+      </section>
+
+      <section className="py-32" id="contact">
+        <FadeInUp className="w-full text-center mb-10 z-10">
+          <Heading level={2} styledAs={1}>
+            Contact me
+          </Heading>
+        </FadeInUp>
+
+        <div className="container mx-auto px-64">
+          <Contact />
+        </div>
       </section>
     </motion.main>
   );
