@@ -21,6 +21,9 @@ module.exports = {
         10: '.10',
         25: '.25',
       },
+      zIndex: {
+        60: '60',
+      },
     },
   },
   variants: {
