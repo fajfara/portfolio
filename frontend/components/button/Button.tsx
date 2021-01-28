@@ -97,7 +97,7 @@ const Button: React.FC<Props> = ({ children, variant = 'primary', href = null, .
   // Else return default
   return (
     <Tag {...buttonProps}>
-      <span className="pointer-events-none flex items-center relative z-10">{children}</span>
+      <span className="pointer-events-none flex items-center relative z-10 justify-center">{children}</span>
       {variant === 'ternary' && (
         <span className="absolute bottom-0 left-0 w-full h-full bg-secondary transition-transform transform-gpu scale-y-25 origin-bottom group-hover:scale-y-100 z-0"></span>
       )}
