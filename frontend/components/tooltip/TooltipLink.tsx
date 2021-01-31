@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 
-// Libs
-import { v4 as uuidv4 } from 'uuid';
-
 interface Props {
   linkContent: JSX.Element | JSX.Element[] | string;
   tooltipContent: JSX.Element | JSX.Element[] | string;
   target?: string;
   href: string;
   id: string;
+  className?: string;
 }
 
-const TooltipLink: React.FC<Props> = ({ linkContent, tooltipContent, href, target = '_blank', id }) => {
+const TooltipLink: React.FC<Props> = ({ linkContent, tooltipContent, href, target = '_blank', id, className = '' }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -20,7 +18,7 @@ const TooltipLink: React.FC<Props> = ({ linkContent, tooltipContent, href, targe
   }, []);
 
   return (
-    <>
+    <div className={className}>
       {mounted && (
         <>
           <a data-tip data-for={id} target={target} href={href}>
@@ -31,7 +29,7 @@ const TooltipLink: React.FC<Props> = ({ linkContent, tooltipContent, href, targe
           </ReactTooltip>
         </>
       )}
-    </>
+    </div>
   );
 };
 

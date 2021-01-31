@@ -156,8 +156,9 @@ export default function Home() {
               <Heading level={3} className="text-center mb-16">
                 Frameworks
               </Heading>
-              <div className="flex justify-evenly">
+              <div className="flex justify-evenly flex-wrap">
                 <TooltipLink
+                  className="w-1/4 flex justify-center mb-2"
                   href="https://reactjs.org/"
                   linkContent={<NucleoIcon size={50} icon="react" />}
                   tooltipContent={<p>React</p>}
@@ -165,6 +166,7 @@ export default function Home() {
                 />
 
                 <TooltipLink
+                  className="w-1/4 flex justify-center"
                   href="https://vuejs.org/"
                   linkContent={<NucleoIcon size={50} icon="vuejs" />}
                   tooltipContent={<p>VueJs</p>}
@@ -172,6 +174,7 @@ export default function Home() {
                 />
 
                 <TooltipLink
+                  className="w-1/4 flex justify-center"
                   href="https://nextjs.com/"
                   linkContent={<NucleoIcon size={50} icon="nextjs" />}
                   tooltipContent={<p>NextJs</p>}
@@ -179,6 +182,7 @@ export default function Home() {
                 />
 
                 <TooltipLink
+                  className="w-1/4 flex justify-center"
                   href="https://nuxtjs.org/"
                   linkContent={<NucleoIcon size={50} icon="nuxtjs-icon" />}
                   tooltipContent={<p>NuxtJS</p>}
@@ -186,6 +190,7 @@ export default function Home() {
                 />
 
                 <TooltipLink
+                  className="w-1/4"
                   href="https://tailwindcss.com/"
                   linkContent={<TailwindIcon />}
                   tooltipContent={<p>Tailwind css</p>}
@@ -219,7 +224,7 @@ export default function Home() {
         <RandomShapes amount={2} />
       </section>
 
-      <section className="py-32 relative" id="projects">
+      <section className="pb-32 relative" id="projects">
         <FadeInUp className="text-center mb-16">
           <Heading level={2} styledAs={1}>
             Projects

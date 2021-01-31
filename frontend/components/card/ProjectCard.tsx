@@ -1,18 +1,36 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { useVisible } from 'react-hooks-visible';
 
 // Components
 import Heading from '../heading/Heading';
-import { BsInfoSquare } from 'react-icons/bs';
+import { BsInfoSquare, BsFillXSquareFill } from 'react-icons/bs';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const ProjectCard = ({ project: { title, summary, screenshots, video_preview }, className }) => {
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { changeProjectData } from '../../redux/ducks/projectModal';
+import { showProjectModal } from '../../redux/ducks/projectModalShow';
+
+// Types
+import { Project } from '../../types/project';
+
+const ProjectCard = ({ project, className }) => {
   const { API_URL } = process.env;
+  // Hooks
+  const [currentElement, isVisible] = useVisible((vi: number) => vi === 1);
+
+  // Project data
+  const projectData: Project = project;
+  const { title, summary, screenshots, video_preview }: Project = project;
 
   // State
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = useState(false);
   const [videoStarted, setVideoStarted] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+
+  // Redux
+  const dispatch = useDispatch();
+  const { show: showModal } = useSelector(state => state.showProjectModal);
 
   // Refs
   const videoRef = useRef(null);
@@ -52,9 +70,26 @@ const ProjectCard = ({ project: { title, summary, screenshots, video_preview }, 
     });
   };
 
+  /**
+   * Handles mouse click on the container element
+   */
   const handleMouseClick = () => {
-    setShowMore(current => !current);
+    dispatch(changeProjectData({ ...projectData }));
+    dispatch(showProjectModal());
   };
+
+  const handleMouseScroll = () => {
+    console.log('Scrolling and the modal is open');
+  };
+
+  useEffect(() => {
+    if (isVisible) {
+      console.log(`I am visible, ${title}`);
+      dispatch(changeProjectData({ ...projectData }));
+    } else {
+      console.log(`I am not visible, ${title}`);
+    }
+  }, [isVisible]);
 
   return (
     <div
@@ -66,24 +101,17 @@ const ProjectCard = ({ project: { title, summary, screenshots, video_preview }, 
       style={{
         cursor: showCursor ? 'none' : 'auto',
       }}
+      //@ts-ignore
+      ref={currentElement}
     >
-      {/** Project modal */}
-      {showMore && (
-        <div className="fixed w-full h-full bg-white top-0 left-0">
-          <div className="relative w-full h-full z-60">
-            <h2>{title}</h2>
-          </div>
-        </div>
-      )}
-
       {/** Custom cursor */}
       {showCursor && (
         <div
           className="absolute z-50 pointer-events-none text-white flex justify-center items-center flex-col"
           style={{ left: cursorPos.x + 'px', top: cursorPos.y + 'px' }}
         >
-          <BsInfoSquare />
-          <span className="mt-2">Click for more info</span>
+          {showModal ? <BsFillXSquareFill /> : <BsInfoSquare />}
+          <span className="mt-2">{showModal ? 'Close the sidebar' : 'Click for more info'}</span>
         </div>
       )}
       <AnimatePresence>
@@ -99,7 +127,14 @@ const ProjectCard = ({ project: { title, summary, screenshots, video_preview }, 
       {/** Video webm preview */}
       {video_preview && (
         <div className="player_wrapper w-full h-full pointer-events-none" style={{ paddingTop: '75%' }}>
-          <video ref={videoRef} preload="none" autoPlay={false} loop={true} muted={true} className="absolute left-0 top-0 z-0 object-cover">
+          <video
+            ref={videoRef}
+            preload="none"
+            autoPlay={false}
+            loop={true}
+            muted={true}
+            className="absolute left-0 top-0 z-0 w-full h-full object-cover"
+          >
             <source src={API_URL + video_preview.url} type="video/webm" />
             Your browser does not support the video tag.
           </video>
